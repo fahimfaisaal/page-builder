@@ -9,7 +9,7 @@ const Elements = ({ title, all }) => (
       {Object.keys(all).map((elmType) => (
         <DraggableElement
           key={shortid.generate()}
-          type={elmType}
+          variant={elmType}
           text={capitalize(elmType)}
         />
       ))}

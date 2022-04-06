@@ -33,12 +33,13 @@ const getElementsState = () => {
 }
 
 /**
- * state schema: 
- * _selectedElement: [type, id]
- * elementsOfCanvas: Array<{type: string, id: string}>
+ * state schema:
+ * _isDropped: boolean
+ * _selectedElement: [variant, id]
+ * elementsOfCanvas: Array<string> format -> `${variant}.${id}`
  * all: {
- *  [type]: {
- *         [id]: elementInfoObject
+ *  [variant]: {
+ *         [id]: Element
  *    }
  * }
  */
@@ -51,58 +52,65 @@ const elementsSlice = createSlice({
       state._isDropped = !state._isDropped
     },
     setSelectedElement(state, action) {
-      const { type = '', id = '' } = action.payload
-      state._selectedElement = [type, id];
+      const { variant = '', id = '' } = action.payload
+      state._selectedElement = [variant, id];
     },
     dropElementToCanvas(state, action) {
-      const { type, elementInfo } = action.payload
+      const { variant, elementInfo } = action.payload
       const { id } = elementInfo.attrs
 
-      state.elementsOfCanvas.push({ type, id })
+      state.elementsOfCanvas.push(`${variant}.${id}`)
 
-      state.all[type][id] = {
+      state.all[variant][id] = {
         ...elementInfo
       }
 
       // update selected element 
-      state._selectedElement = [type, id]
+      state._selectedElement = [variant, id]
 
       // set the current state to local storage
+      // Todo: uncomment this 
       setElementToLocalStore(current(state))
     },
     editElement(state, action) {
       const { editProp, editValue } = action.payload
-      const [type, editId] = state._selectedElement;
+      const [variant, editId] = state._selectedElement;
 
-      const selectedElement = state.all[type][editId];
+      const selectedElement = state.all[variant][editId];
       selectedElement[editProp] = editValue;
 
+      console.log(current(selectedElement))
+
       // set the current state to local storage
-      setElementToLocalStore(state)
+      setElementToLocalStore(current(state))
     },
     deleteElement(state) {
-      const [type, deleteId] = state._selectedElement;
+      const [variant, deleteId] = state._selectedElement;
 
-      delete state.all[type][deleteId]
+      delete state.all[variant][deleteId]
 
-      state.elementsOfCanvas = state.elementsOfCanvas.filter(({ id }) => id !== deleteId)
+      state.elementsOfCanvas = state.elementsOfCanvas.filter((element) => {
+        const [, id] = element.split('.')
+        
+        return id !== deleteId
+      })
 
       // update selected element index
       state._selectedElement = ['', '']
 
       // set the current state to local storage
-      setElementToLocalStore(state)
+      // setElementToLocalStore(state)
     }
   }
 })
 
 export const getIsDropped = ({ elements }) => elements._isDropped
 
-export const getElementsOfCanvas = ({ elements }) => elements.elementOfCanvas;
+export const getElementsOfCanvas = ({ elements }) => elements.elementsOfCanvas;
 
 /**
  * @param {Object} state 
- * @returns {[type, id]}
+ * @returns {[variant, id]}
  */
 export const getSelectedElement = ({ elements }) => elements._selectedElement;
 
@@ -112,6 +120,7 @@ export const getAllElements = ({ elements }) => elements.all;
 // export the all actions
 export const {
   toggleDrop,
+  setSelectedElement,
   dropElementToCanvas,
   editElement,
   deleteElement

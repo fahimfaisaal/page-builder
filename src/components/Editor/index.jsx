@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllElements, getSelectedElement } from '../../slices/elementsSlice';
+import { editElement, getAllElements, getSelectedElement } from '../../slices/elementsSlice';
+import BoxModel from '../BoxModel';
 import ColorBox from '../ColorBox';
 import Divider from '../Divider';
 import Select from '../Select/Select';
@@ -21,9 +22,39 @@ const Editor = () => {
     marginRight,
     marginBottom,
     marginLeft,
+    paddingTop,
+    paddingRight,
+    paddingBottom,
+    paddingLeft,
   } = attrs.style
 
+
   const dispatch = useDispatch()
+
+  const changeHandler = (e) => {
+    const { value, name } = e.target;
+    console.log(name, value)
+
+    const isButton = new Set(['submit', 'button', 'reset'])
+    let newAttrs 
+
+    if (name === 'type' && isButton.has(value)) {
+      newAttrs = {
+        ...attrs,
+        [name]: value
+      }
+    } else {
+      newAttrs = {
+        ...attrs,
+        style: {
+          ...attrs.style,
+          [name]: value + (e.target.getAttribute('dataunit') || '')
+        }
+      }
+    }
+
+    dispatch(editElement({ editProp: 'attrs', editValue: newAttrs }))
+  }
 
   return (
     <aside className='app__editor'>
@@ -37,7 +68,7 @@ const Editor = () => {
             <ColorBox
               name="backgroundColor"
               value={backgroundColor}
-              onChange={null} // Todo must add handler
+              changeHandler={changeHandler} // Todo must add handler
             />
           </div>
           <div className="color flex">
@@ -45,7 +76,7 @@ const Editor = () => {
             <ColorBox
               name="color"
               value={color}
-              onChange={null} // Todo must add handler
+              changeHandler={changeHandler} // Todo must add handler
             />
           </div>
         </div>
@@ -57,7 +88,7 @@ const Editor = () => {
             name="display"
             selectedValue={display}
             values={['block', 'inline-block', 'inline']}
-            selectHandler={null} // Todo must add handler
+            changeHandler={changeHandler} // Todo must add handler
           />
         </div>
         <Divider />
@@ -68,7 +99,7 @@ const Editor = () => {
             <UnitBox
               name="height"
               value={height}
-              changeHandler={null} // Todo must add handler 
+              changeHandler={changeHandler}
             />
           </div>
           <div className="width flex">
@@ -76,56 +107,48 @@ const Editor = () => {
             <UnitBox
               name="width"
               value={width}
-              changeHandler={null} // Todo must add handler 
+              changeHandler={changeHandler}
             />
           </div>
         </div>
         <Divider />
 
-        <div className="box-model">
-          <div className="margin">
-            <p className='style-label'>Margin</p>
+        <BoxModel
+          title="Margin"
+          values={[
+            ["Top", "marginTop", marginTop],
+            ["Right", "marginRight", marginRight],
+            ["Bottom", "marginBottom", marginBottom],
+            ["Left", "marginLeft", marginLeft],
+          ]}
+          changeHandler={changeHandler}
+        />
 
-            <div className="box-model__unit-box flex">
-              <div className="box">
-                <p className='style-sub-label'>Top</p>
-                <UnitBox
-                  name="marginTop"
-                  value={marginTop}
-                  changeHandler={null} // Todo must add handler 
-                />
-              </div>
-              <div className="box">
-                <p className='style-sub-label'>Right</p>
-                <UnitBox
-                  name="marginRight"
-                  value={marginRight}
-                  changeHandler={null} // Todo must add handler 
-                />
-              </div>
-              <div className="box">
-                <p className='style-sub-label'>Bottom</p>
-                <UnitBox
-                  name="marginBottom"
-                  value={marginBottom}
-                  changeHandler={null} // Todo must add handler 
-                />
-              </div>
-              <div className="box">
-                <p className='style-sub-label'>Left</p>
-                <UnitBox
-                  name="marginLeft"
-                  value={marginLeft}
-                  changeHandler={null} // Todo must add handler 
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <BoxModel
+          title="Padding"
+          values={[
+            ["Top", "paddingTop", paddingTop],
+            ["Right", "paddingRight", paddingRight],
+            ["Bottom", "paddingBottom", paddingBottom],
+            ["Left", "paddingLeft", paddingLeft],
+          ]}
+          changeHandler={changeHandler}
+        />
       </div>
 
       <Divider />
       <div className="app__editor--custom-styles">
+        {selectedType === 'button' && (
+          <div className="display flex">
+            <p className='style-label'>Type</p>
+            <Select
+              name="type"
+              selectedValue={attrs.type}
+              values={['button', 'submit', 'reset']}
+              changeHandler={changeHandler} // Todo must add handler
+            />
+          </div>
+        )}
       </div>
     </aside>
   )

@@ -3,12 +3,12 @@ import Input from "../Input";
 import Label from "../Label";
 import './ColorBox.scss';
 
-const ColorBox = ({ name, value = "#000000", changeHandler }) => {
+const ColorBox = ({ name, value, changeHandler }) => {
   const id = shortid.generate()
 
   return (
     <div className="color-box">
-      <Input name={name} id={id} classes="color-box__input" type="color" value={value} onChange={changeHandler} />
+      <Input name={name} id={id} classes="color-box__input" type="color" value={value} changeHandler={changeHandler} />
       <Label classes="color-box__value" htmlFor={id} text={value.substring(1).toUpperCase() || "000000"} />
     </div>
   )

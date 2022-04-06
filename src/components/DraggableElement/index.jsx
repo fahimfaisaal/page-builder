@@ -4,29 +4,27 @@ import icons from '../../assets/icons/icons'
 import { dropElementToCanvas, getIsDropped } from '../../slices/elementsSlice'
 import './DraggableElement.scss'
 import Element from '../../models/Element'
-import { elements } from '../../data'
 
-export default function DraggableElement({ type, text }) {
+export default function DraggableElement({ variant, text }) {
   const isDropped = useSelector(getIsDropped)
   const dispatch = useDispatch()
 
   const dragEndHandler = (e) => {
     if (isDropped) {
-      const type = e.target.id
-      const tag = elements[type];
-      const newElement = new Element(tag)
+      const variant = e.target.id
+      const newElement = new Element(variant)
 
       dispatch(dropElementToCanvas({
-        type,
+        variant,
         elementInfo: newElement
       }))
     }
   }
 
   return (
-    <div id={type} draggable="true" className='element' onDragEnd={dragEndHandler}>
+    <div id={variant} draggable="true" className='element' onDragEnd={dragEndHandler}>
       <div className="element__icon">
-        <img style={{pointerEvents: 'none'}} src={icons[type]} alt={type} />
+        <img style={{pointerEvents: 'none'}} src={icons[variant]} alt={variant} />
       </div> 
       <span className='element__title'>{text}</span>
     </div>

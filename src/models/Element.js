@@ -1,8 +1,11 @@
 import shortid from "shortid";
+import { elements } from "../data";
 
 class Element {
-  constructor(tag, attrs, children = []) {
-    this.tag = tag;
+  constructor(variant, attrs = {}) {
+    const { tag, children } = elements.all[variant]
+    this.variant = variant
+    this.tag = tag
     this.attrs = {
       id: shortid.generate(),
       style: {
@@ -23,8 +26,6 @@ class Element {
       ...attrs
     }
     this.children = children
-
-    return Object.seal(this)
   }
 }
 

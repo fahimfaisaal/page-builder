@@ -2,9 +2,9 @@
 export const elements = {
   title: 'Elements',
   all: {
-    heading: 'h1',
-    paragraph: 'p',
-    button: 'button',
-    link: 'a'
+    heading: { tag: 'h1', children: ['I am heading'] },
+    paragraph: { tag: 'p', children: ['I am paragraph'] },
+    button: { tag: 'button', children: ['Get Started' ]},
+    link: { tag: 'a', children: ['Try Live Demo'] }
   }
 }

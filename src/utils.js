@@ -32,3 +32,12 @@ export const getFromLocalStorage = (key) => {
 
   return null;
 }
+
+export const debounce = (eventHandler, delay = 1) => {
+  let timer;
+
+  return (() => {
+    clearTimeout(timer);
+    timer = setTimeout(() => eventHandler(), delay);
+  })();
+}
