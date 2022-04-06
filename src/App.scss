@@ -1,0 +1,24 @@
+.app {
+  width: 100vw;
+  height: 100vh;
+
+  display: grid;
+  grid-template-columns: 1fr 4.5fr;
+
+  &--editor {
+    grid-template-columns: 1fr 3.3fr 1.2fr;
+  }
+
+  &__elements-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-self: flex-start;
+    gap: 1rem;
+  }
+
+  &__elements,
+  &__editor {
+    background-color: var(--primary-color);
+    padding: 0rem 2rem;
+  }
+}

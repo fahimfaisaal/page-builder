@@ -1,0 +1,51 @@
+@import url("./assets/fonts/fonts.scss");
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: hsl(227, 12%, 24%);
+  --secondary-color: hsl(223, 28%, 95%);
+  --dim-primary-color: hsl(228, 13%, 38%);
+
+  --typo-heading: hsl(0, 0%, 100%);
+  --placeholder-color: hsl(0, 0%, 56%);
+  --label-color: hsl(300, 2%, 70%);
+  --style-label-color: hsl(300, 1%, 86%);
+  --box-border-color: hsl(232, 21%, 56%);
+}
+
+html {
+  font-size: 65.3%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+img {
+  width: 100%;
+}
+
+h3,
+h4 {
+  font-family: "SF Pro Display";
+}
+
+h3 {
+  font-size: 2.4rem;
+  color: var(--typo-heading);
+}

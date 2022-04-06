@@ -1,0 +1,41 @@
+.unit-box {
+  $border-width: 0.1rem;
+
+  background-color: var(--secondary-color);
+  max-width: 9rem;
+  border: $border-width solid var(--box-border-color);
+  border-radius: 0.7rem;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__value {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    font-size: 1.5rem;
+  }
+
+  &__unit {
+    position: relative;
+    font-size: 1.5rem;
+    padding: 0 0.5rem;
+    color: var(--label-color);
+  }
+
+  &__unit::before {
+    content: "";
+    display: inline-block;
+    width: $border-width;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    transform: scaleY(2);
+    background-color: var(--box-border-color);
+  }
+}

@@ -1,0 +1,25 @@
+.app__editor {
+  &-heading {
+    font-size: 1.8rem;
+    color: var(--typo-heading);
+  }
+}
+.box-model .unit-box {
+  transform: scale(0.9);
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.style-label {
+  font-size: 1.2rem;
+  color: var(--style-label-color);
+}
+
+.style-sub-label {
+  font-size: 1rem;
+  color: var(--style-label-color);
+}

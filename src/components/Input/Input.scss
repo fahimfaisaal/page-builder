@@ -1,0 +1,34 @@
+.input {
+  $shape: 0.56rem;
+
+  padding: $shape;
+  border-radius: $shape;
+
+  &[type="color"] {
+    $area: 2.8rem;
+
+    width: $area - 0.2;
+    height: $area;
+    padding: 0rem;
+
+    border: none;
+    background-color: transparent;
+
+    appearance: none;
+    cursor: pointer;
+
+    &::-webkit-color-swatch {
+      border-radius: 0.5rem;
+      border: none;
+    }
+
+    &::-moz-color-swatch {
+      border-radius: 0.5rem;
+      border: none;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

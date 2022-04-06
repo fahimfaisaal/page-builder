@@ -1,0 +1,27 @@
+.placeholder {
+  border: 0.22rem dashed var(--placeholder-color);
+  border-radius: 0.5rem;
+  width: 100%;
+  pointer-events: none;
+
+  $box-margin-x: 10vw;
+
+  margin: 0 $box-margin-x;
+  padding: $box-margin-x / 2 + 2;
+
+  &__text {
+    text-align: center;
+
+    color: var(--placeholder-color);
+    font-size: 2rem;
+    font-weight: 300;
+  }
+}
+
+.dropping {
+  background-color: rgb(174, 184, 186);
+
+  & .placeholder__text {
+    color: rgb(100, 125, 123);
+  }
+}
