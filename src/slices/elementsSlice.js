@@ -99,7 +99,7 @@ const elementsSlice = createSlice({
       state._selectedElement = ['', '']
 
       // set the current state to local storage
-      // setElementToLocalStore(state)
+      setElementToLocalStore(state)
     }
   }
 })

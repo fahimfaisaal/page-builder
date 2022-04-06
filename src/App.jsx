@@ -1,4 +1,3 @@
-import { DragDropContext } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import './App.scss';
 import Canvas from './components/Canvas';
